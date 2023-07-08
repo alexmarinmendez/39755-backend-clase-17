@@ -1,6 +1,8 @@
 import express from 'express'
+import compression from 'express-compression'
 
 const app = express()
+app.use(compression())
 
 app.get('/stringlargo', (req, res) => {
     let string = 'Este string es muy largo para la request!!!'
