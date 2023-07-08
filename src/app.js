@@ -1,24 +1,11 @@
 import express from 'express'
-import compression from 'express-compression'
-// import compression from 'compression'
+import userRouter from './routers/user.router.js'
+import errorHandler from './middlewares/error.middleware.js'
 
 const app = express()
-app.use(compression({
-    brotli: { enabled: true, zlib: {} }
-}))
+app.use(express.json())
 
-app.get('/stringlargo', (req, res) => {
-    let string = 'Este string es muy largo para la request!!!'
-
-    for (let index = 0; index < 10e4; index++) {
-        string += '<br>Estamos haciendo aun mas larga la respuesta!</br>'
-    }
-    res.send(string)
-})
-
-app.get('/otrostringlargo', (req, res) => {
-    const payload = 'Hello World from Coder!!'
-    res.send(payload.repeat(100000))
-})
+app.use('/api/users', userRouter)
+app.use(errorHandler)
 
 app.listen(8080, () => console.log('Server Up!'))
