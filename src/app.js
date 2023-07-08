@@ -1,10 +1,10 @@
 import express from 'express'
-// import compression from 'express-compression'
-import compression from 'compression'
+import compression from 'express-compression'
+// import compression from 'compression'
 
 const app = express()
 app.use(compression({
-    level: 1
+    brotli: { enabled: true, zlib: {} }
 }))
 
 app.get('/stringlargo', (req, res) => {
